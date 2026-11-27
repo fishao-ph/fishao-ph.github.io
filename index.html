@@ -3,6 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="text-scale" content="scale">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#FAF4E6" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0C2B33" media="(prefers-color-scheme: dark)">
 <title>FISHAO Fish Trading | Sustainable fisheries startup in Bataan</title>
 <meta name="description" content="FISHAO turns low-value fisheries commodities into fisheries solutions. 500,000+ kg of wasted oyster shells converted into sustainable water conditioner for aquariums. Orani, Bataan, Philippines.">
 <meta property="og:title" content="FISHAO Fish Trading">
@@ -16,208 +20,236 @@
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="apple-touch-icon" href="favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Sans+Extra+Condensed:wght@700&family=Fira+Sans:wght@400;500;600&display=swap">
 <style>
+/* ---------- tokens (light + dark) ---------- */
 :root{
+  color-scheme: light dark;
   --bg:#FAF4E6; --surface:#FFFFFF; --ink:#12364F; --teal:#064F57; --muted:#4A6572;
   --line:#E4DAC2; --bubble:#CFE6E3; --accent:#0B7A75; --deep:#064F57; --deeper:#043A40;
-  --on-deep:#FAF4E6; --mint:#8FD3CB;
+  --on-deep:#FAF4E6; --mint:#8FD3CB; --shadow:rgb(6 79 87 / .14);
+  accent-color:var(--teal);
 }
 @media (prefers-color-scheme:dark){
-  :root:not([data-theme="light"]){
+  :root{
     --bg:#0C2B33; --surface:#123A44; --ink:#F2EBD9; --teal:#8FD3CB; --muted:#A9C2C4;
     --line:#245662; --bubble:#17525A; --accent:#8FD3CB; --deep:#0A4650; --deeper:#06323A;
+    --shadow:rgb(0 0 0 / .35);
   }
 }
 *{box-sizing:border-box;margin:0}
-html{scroll-behavior:smooth;scroll-padding-top:72px}
-body{background:var(--bg);color:var(--ink);font:400 17px/1.65 "Fira Sans",system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
-img{max-width:100%;display:block}
+html{scroll-behavior:smooth;scroll-padding-top:5rem}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{background:var(--bg);color:var(--ink);font-family:"Fira Sans",system-ui,sans-serif;font-size:1.0625rem;line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:clip}
+img{max-width:100%;display:block;height:auto}
 a{color:inherit}
-.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
-.cond{font-family:"Fira Sans Extra Condensed","Fira Sans",sans-serif;font-weight:700}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:6px}
+.wrap{max-width:70rem;margin:0 auto;padding:0 1.25rem}
+.skip{position:absolute;left:1rem;top:-4rem;z-index:50;background:var(--teal);color:var(--bg);padding:.6rem 1rem;border-radius:.6rem;font-weight:600;text-decoration:none}
+.skip:focus{top:1rem}
 
-/* header */
-header.top{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 86%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid transparent;transition:border-color .3s,box-shadow .3s}
-header.top.scrolled{border-color:var(--line);box-shadow:0 6px 20px rgba(6,79,87,.06)}
-.top .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
-.top img{height:26px;width:auto}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .logo{filter:brightness(0) invert(.93)}}
-nav{display:flex;align-items:center;gap:22px}
-nav a{text-decoration:none;font-weight:500;font-size:15px;color:var(--muted);position:relative}
-nav a:not(.cta)::after{content:"";position:absolute;left:0;right:0;bottom:-4px;height:2px;background:var(--accent);transform:scaleX(0);transition:transform .25s}
-nav a:not(.cta):hover::after{transform:scaleX(1)}
-nav .cta{background:var(--teal);color:var(--bg);padding:8px 16px;border-radius:999px;font-weight:600}
-@media(max-width:680px){nav a.hide{display:none}}
+/* ---------- header (sticky; gains a shadow only when stuck) ---------- */
+header.top{position:sticky;top:0;z-index:20;container-type:scroll-state;container-name:site-header}
+.bar{background:color-mix(in oklab,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid transparent;transition:border-color .3s,box-shadow .3s}
+@container site-header scroll-state(stuck: top){
+  .bar{border-color:var(--line);box-shadow:0 .4rem 1.25rem var(--shadow)}
+}
+.bar .wrap{display:flex;align-items:center;justify-content:space-between;min-height:4rem;gap:1rem}
+.logo{height:1.6rem;width:auto}
+@media (prefers-color-scheme:dark){.logo{filter:brightness(0) invert(.93)}}
+nav{display:flex;align-items:center;gap:1.35rem}
+nav a{text-decoration:none;font-weight:500;font-size:.94rem;color:var(--muted);position:relative}
+nav a:not(.cta)::after{content:"";position:absolute;inset-inline:0;bottom:-.25rem;height:2px;background:var(--accent);scale:0 1;transform-origin:left;transition:scale .25s}
+nav a:not(.cta):hover::after{scale:1 1}
+nav .cta{background:var(--teal);color:var(--bg);padding:.5rem 1rem;border-radius:999px;font-weight:600}
+@media (width < 42.5em){nav a.hide{display:none}}
 
-/* hero */
-.hero{position:relative;overflow:hidden;padding:64px 0 0}
+/* ---------- hero ---------- */
+.hero{position:relative;overflow:hidden;padding:4rem 0 0}
 .bubbles{position:absolute;inset:0;pointer-events:none;z-index:0}
-.bubbles i{position:absolute;bottom:-60px;border-radius:50%;background:var(--bubble);opacity:.55;animation:rise linear infinite}
-@keyframes rise{0%{transform:translateY(0) translateX(0)}50%{transform:translateY(-55vh) translateX(14px)}100%{transform:translateY(-110vh) translateX(-8px);opacity:0}}
-.hero-grid{position:relative;z-index:1;display:grid;gap:40px;grid-template-columns:1fr;align-items:center}
-@media(min-width:900px){.hero-grid{grid-template-columns:1.05fr .95fr}}
-.eyebrow{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);background:color-mix(in srgb,var(--bubble) 70%,transparent);padding:6px 12px;border-radius:999px}
-.eyebrow::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--accent);animation:pulse 2s ease-in-out infinite}
-@keyframes pulse{50%{transform:scale(1.5);opacity:.5}}
-h1{font:700 clamp(46px,7.6vw,84px)/.96 "Fira Sans Extra Condensed","Fira Sans",sans-serif;color:var(--teal);margin:18px 0 20px}
-h1 .hl{position:relative;white-space:nowrap}
-h1 .hl::after{content:"";position:absolute;left:-2%;right:-2%;bottom:.06em;height:.22em;background:var(--mint);opacity:.55;z-index:-1;border-radius:4px;transform-origin:left;animation:mark 1s .5s ease-out both}
-@keyframes mark{from{transform:scaleX(0)}to{transform:scaleX(1)}}
-.lede{font-size:clamp(18px,2.2vw,20.5px);max-width:34em}
-.btns{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
-.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 24px;border-radius:999px;font-weight:600;text-decoration:none;font-size:16px;transition:transform .15s,box-shadow .2s}
-.btn:hover{transform:translateY(-2px);box-shadow:0 10px 22px rgba(6,79,87,.18)}
+.bubbles i{position:absolute;bottom:-4rem;border-radius:50%;background:var(--bubble);opacity:.55}
+@keyframes rise{50%{translate:.9rem -55vh}100%{translate:-.5rem -110vh;opacity:0}}
+.hero-grid{position:relative;z-index:1;display:grid;gap:2.5rem;grid-template-columns:1fr;align-items:center}
+@media (width >= 56em){.hero-grid{grid-template-columns:1.05fr .95fr}}
+.eyebrow{display:inline-flex;align-items:center;gap:.5rem;font-weight:600;font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);background:color-mix(in oklab,var(--bubble) 70%,transparent);padding:.4rem .75rem;border-radius:999px}
+.eyebrow::before{content:"";flex:none;width:.5rem;height:.5rem;border-radius:50%;background:var(--accent)}
+h1{font-family:"Fira Sans Extra Condensed","Fira Sans",sans-serif;font-weight:700;font-size:clamp(2.75rem,1.6rem + 4.6vw,5.25rem);line-height:.96;color:var(--teal);margin:1.1rem 0 1.25rem}
+h1 .hl{position:relative;isolation:isolate}
+h1 .hl::after{content:"";position:absolute;inset-inline:-2%;bottom:.06em;height:.22em;background:var(--mint);opacity:.55;z-index:-1;border-radius:4px;transform-origin:left}
+.lede{font-size:clamp(1.1rem,1rem + .4vw,1.3rem);max-width:34em}
+.btns{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:1.75rem}
+.btn{display:inline-flex;align-items:center;gap:.5rem;padding:.8rem 1.5rem;border-radius:999px;font-weight:600;text-decoration:none;font-size:1rem;border:1.5px solid transparent;transition:translate .15s,box-shadow .2s}
+.btn:hover{translate:0 -2px;box-shadow:0 .6rem 1.4rem var(--shadow)}
 .btn.p{background:var(--teal);color:var(--bg)}
-.btn.s{border:1.5px solid var(--teal);color:var(--teal)}
+.btn.s{border-color:var(--teal);color:var(--teal)}
 
-.hero-art{position:relative;min-height:340px}
-.ph{position:absolute;border-radius:22px;overflow:hidden;box-shadow:0 22px 50px rgba(6,79,87,.22);border:5px solid var(--surface)}
+.hero-art{position:relative;min-height:25rem}
+@media (width < 56em){.hero-art{min-height:0;height:min(80vw,27.5rem)}}
+.ph{position:absolute;border-radius:1.4rem;overflow:hidden;box-shadow:0 1.4rem 3rem var(--shadow);border:5px solid var(--surface)}
 .ph img{width:100%;height:100%;object-fit:cover}
-.hero-art{min-height:400px}
-.ph.a{width:88%;aspect-ratio:16/10;right:0;top:0;transform:rotate(2deg)}
-.ph.b{width:40%;aspect-ratio:4/3;left:0;bottom:0;transform:rotate(-4deg)}
-@media(max-width:899px){.hero-art{min-height:0;height:min(80vw,440px)}}
-.float{position:absolute;z-index:2;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:12px 16px;box-shadow:0 12px 30px rgba(6,79,87,.16);animation:bob 4.5s ease-in-out infinite}
-.float b{display:block;font:700 26px/1 "Fira Sans Extra Condensed","Fira Sans",sans-serif;color:var(--teal)}
-.float span{font-size:13px;color:var(--muted)}
+.ph.a{width:88%;aspect-ratio:16/10;right:0;top:0;rotate:2deg}
+.ph.b{width:40%;aspect-ratio:4/3;left:0;bottom:0;rotate:-4deg}
+.float{position:absolute;z-index:2;background:var(--surface);border:1px solid var(--line);border-radius:1rem;padding:.75rem 1rem;box-shadow:0 .75rem 1.9rem var(--shadow)}
+.float b{display:block;font-family:"Fira Sans Extra Condensed","Fira Sans",sans-serif;font-size:1.6rem;line-height:1;color:var(--teal)}
+.float span{font-size:.8rem;color:var(--muted)}
 .float.f1{right:2%;bottom:2%}
-.float.f2{left:2%;top:4%;animation-delay:-2s}
-@keyframes bob{50%{transform:translateY(-8px)}}
+.float.f2{left:2%;top:4%}
+@keyframes bob{50%{translate:0 -8px}}
 
-.wave{display:block;width:100%;height:70px;margin-top:56px}
+.wave{display:block;width:100%;height:4.4rem;margin-top:3.5rem}
 .wave path{fill:var(--deep)}
 
-/* stats band */
-.band{background:var(--deep);color:var(--on-deep);padding:22px 0 50px}
-.stats{display:grid;gap:26px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
-.stat b{display:block;font:700 clamp(44px,6vw,62px)/1 "Fira Sans Extra Condensed","Fira Sans",sans-serif;color:var(--mint)}
-.stat > span{display:block;margin-top:8px;opacity:.9;font-size:15.5px;max-width:22em}
+/* ---------- stats band + ribbon ---------- */
+.band{background:var(--deep);color:var(--on-deep);padding:1.4rem 0 3.1rem}
+.stats{display:grid;gap:1.6rem;grid-template-columns:repeat(auto-fit,minmax(min(100%,14rem),1fr))}
+.stat b{display:block;font-family:"Fira Sans Extra Condensed","Fira Sans",sans-serif;font-size:clamp(2.75rem,2rem + 2.4vw,3.9rem);line-height:1;color:var(--mint)}
+.stat > span{display:block;margin-top:.5rem;opacity:.92;font-size:.97rem;max-width:22em}
 
-/* marquee */
-.marquee{background:var(--deeper);color:var(--on-deep);overflow:hidden;white-space:nowrap;padding:14px 0;border-top:1px solid rgba(255,255,255,.08)}
-.track{display:inline-flex;gap:0;animation:slide 32s linear infinite}
-.track span{font:700 22px/1 "Fira Sans Extra Condensed","Fira Sans",sans-serif;letter-spacing:.04em;text-transform:uppercase;padding:0 22px;opacity:.92}
-.track span::after{content:"◆";margin-left:44px;color:var(--mint);font-size:12px;vertical-align:middle}
-@keyframes slide{to{transform:translateX(-50%)}}
-.marquee:hover .track{animation-play-state:paused}
+.marquee{position:relative;background:var(--deeper);color:var(--on-deep);overflow:hidden;white-space:nowrap;padding:.85rem 0;border-top:1px solid rgb(255 255 255 / .08)}
+.track{display:inline-flex}
+.track span{font-family:"Fira Sans Extra Condensed","Fira Sans",sans-serif;font-weight:700;font-size:1.4rem;line-height:1;letter-spacing:.04em;text-transform:uppercase;padding:0 1.4rem;opacity:.92}
+.track span::after{content:"◆";margin-left:2.75rem;color:var(--mint);font-size:.75rem;vertical-align:middle}
+@keyframes slide{to{translate:-50% 0}}
+.motion-toggle{position:absolute;right:.75rem;top:50%;translate:0 -50%;z-index:2;display:inline-flex;align-items:center;gap:.4rem;font:600 .8rem/1 "Fira Sans",sans-serif;color:var(--deeper);background:var(--on-deep);border:0;border-radius:999px;padding:.5rem .8rem;cursor:pointer}
+.motion-toggle svg{width:.85rem;height:.85rem}
 
-section{padding:80px 0}
-.kicker{font-weight:600;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:8px}
-h2{font:700 clamp(36px,5.2vw,54px)/1.02 "Fira Sans Extra Condensed","Fira Sans",sans-serif;color:var(--teal);margin-bottom:14px}
-.sub{max-width:36em;color:var(--muted);font-size:18px}
+/* ---------- sections ---------- */
+section{padding:5rem 0}
+.kicker{font-weight:600;font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:.5rem}
+h2{font-family:"Fira Sans Extra Condensed","Fira Sans",sans-serif;font-weight:700;font-size:clamp(2.25rem,1.7rem + 2vw,3.4rem);line-height:1.02;color:var(--teal);margin-bottom:.9rem}
+.sub{max-width:36em;color:var(--muted);font-size:1.12rem}
 
-/* flow */
-.flow{display:grid;gap:16px;margin-top:36px;grid-template-columns:1fr;align-items:stretch}
-@media(min-width:860px){.flow{grid-template-columns:1fr 56px 1fr 56px 1fr}}
-.step{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:26px;transition:transform .25s,box-shadow .25s}
-.step:hover{transform:translateY(-5px);box-shadow:0 16px 34px rgba(6,79,87,.14)}
-.ico{width:58px;height:58px;border-radius:16px;display:grid;place-items:center;background:var(--bubble);color:var(--teal);margin-bottom:16px}
-.ico svg{width:30px;height:30px}
-.step .n{position:absolute;top:18px;right:22px;font:700 42px/1 "Fira Sans Extra Condensed","Fira Sans",sans-serif;color:var(--line)}
-.step h3{font-size:20px;color:var(--teal);margin-bottom:6px}
-.step p{color:var(--muted);font-size:16px}
+.ico{width:3.6rem;height:3.6rem;border-radius:1rem;display:grid;place-items:center;background:var(--bubble);color:var(--teal);margin-bottom:1rem}
+.ico svg{width:1.9rem;height:1.9rem}
+
+.flow{display:grid;gap:1rem;margin-top:2.25rem;grid-template-columns:1fr;align-items:stretch}
+@media (width >= 54em){.flow{grid-template-columns:1fr 3.5rem 1fr 3.5rem 1fr}}
+.step{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:1.4rem;padding:1.6rem;transition:translate .25s,box-shadow .25s}
+.step:hover{translate:0 -5px;box-shadow:0 1rem 2.1rem var(--shadow)}
+.step .n{position:absolute;top:1.1rem;right:1.4rem;font-family:"Fira Sans Extra Condensed","Fira Sans",sans-serif;font-weight:700;font-size:2.6rem;line-height:1;color:var(--line)}
+.step h3{font-size:1.25rem;color:var(--teal);margin-bottom:.35rem}
+.step p{color:var(--muted);font-size:1rem}
 .step.end{background:linear-gradient(150deg,var(--deep),var(--deeper));border-color:transparent}
 .step.end h3,.step.end p{color:var(--on-deep)}
-.step.end .ico{background:rgba(255,255,255,.12);color:var(--mint)}
-.step.end .n{color:rgba(255,255,255,.14)}
-.arrow{align-self:center;justify-self:center;color:var(--accent);transform:rotate(90deg)}
-.arrow svg{width:34px;height:34px;animation:nudge 1.6s ease-in-out infinite}
-@keyframes nudge{50%{transform:translateX(5px)}}
-@media(min-width:860px){.arrow{transform:none}}
+.step.end .ico{background:rgb(255 255 255 / .12);color:var(--mint)}
+.step.end .n{color:rgb(255 255 255 / .14)}
+.arrow{align-self:center;justify-self:center;color:var(--accent);rotate:90deg}
+.arrow svg{width:2.1rem;height:2.1rem}
+@media (width >= 54em){.arrow{rotate:0deg}}
+@keyframes nudge{50%{translate:5px 0}}
 
-/* offers */
-.offers{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));margin-top:22px}
-.card{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:26px;transition:transform .25s,box-shadow .25s,border-color .25s}
-.card:hover{transform:translateY(-5px);box-shadow:0 16px 34px rgba(6,79,87,.14);border-color:var(--mint)}
-.card h3{font-size:19px;color:var(--teal);margin-bottom:6px}
-.card p{color:var(--muted);font-size:16px}
+.offers{display:grid;gap:1.1rem;grid-template-columns:repeat(auto-fit,minmax(min(100%,15rem),1fr));margin-top:1.4rem}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:1.4rem;padding:1.6rem;transition:translate .25s,box-shadow .25s,border-color .25s}
+.card:hover{translate:0 -5px;box-shadow:0 1rem 2.1rem var(--shadow);border-color:var(--mint)}
+.card h3{font-size:1.2rem;color:var(--teal);margin-bottom:.35rem}
+.card p{color:var(--muted);font-size:1rem}
 
-/* recognition */
-.awards{background:var(--surface);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-.aw-grid{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));margin-top:26px}
-.aw{display:flex;gap:16px;align-items:flex-start;padding:22px;border-radius:20px;background:var(--bg);border:1px solid var(--line)}
-.aw .medal{flex:none;width:54px;height:54px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(145deg,#F3C969,#D9A53A);color:#5A3B00;box-shadow:inset 0 -3px 0 rgba(0,0,0,.12)}
-.aw .medal svg{width:26px;height:26px}
-.aw b{display:block;color:var(--teal);font-size:18px;line-height:1.3}
-.aw span{color:var(--muted);font-size:15px}
+.awards{background:var(--surface);border-block:1px solid var(--line)}
+.aw-grid{display:grid;gap:1.1rem;grid-template-columns:repeat(auto-fit,minmax(min(100%,15.5rem),1fr));margin-top:1.6rem}
+.aw{display:flex;gap:1rem;align-items:flex-start;padding:1.4rem;border-radius:1.25rem;background:var(--bg);border:1px solid var(--line)}
+.medal{flex:none;width:3.4rem;height:3.4rem;border-radius:50%;display:grid;place-items:center;background:linear-gradient(145deg,#F3C969,#D9A53A);color:#5A3B00;box-shadow:inset 0 -3px 0 rgb(0 0 0 / .12)}
+.medal svg{width:1.6rem;height:1.6rem}
+.aw b{display:block;color:var(--teal);font-size:1.12rem;line-height:1.3}
+.aw span{color:var(--muted);font-size:.94rem}
 
-/* founder */
-.founder{display:grid;gap:40px;grid-template-columns:1fr;align-items:center}
-@media(min-width:860px){.founder{grid-template-columns:.85fr 1.15fr}}
-.f-photo{position:relative;max-width:420px}
-.f-photo img{border-radius:26px;width:100%;aspect-ratio:1/1;object-fit:cover;box-shadow:0 22px 50px rgba(6,79,87,.2)}
-.f-photo::before{content:"";position:absolute;inset:18px -18px -18px 18px;border-radius:26px;border:2px dashed var(--accent);opacity:.45;z-index:-1}
-.f-photo{z-index:0}
-.tags{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0 22px}
-.tags span{background:var(--bubble);color:var(--teal);font-weight:600;font-size:14px;padding:6px 13px;border-radius:999px}
+.founder{display:grid;gap:2.5rem;grid-template-columns:1fr;align-items:center}
+@media (width >= 54em){.founder{grid-template-columns:.85fr 1.15fr}}
+.f-photo{position:relative;isolation:isolate;max-width:26rem}
+.f-photo img{border-radius:1.6rem;width:100%;aspect-ratio:1;object-fit:cover;box-shadow:0 1.4rem 3rem var(--shadow)}
+.f-photo::before{content:"";position:absolute;inset:1.1rem -1.1rem -1.1rem 1.1rem;border-radius:1.6rem;border:2px dashed var(--accent);opacity:.45;z-index:-1}
+.tags{display:flex;flex-wrap:wrap;gap:.5rem;margin:1rem 0 1.4rem}
+.tags span{background:var(--bubble);color:var(--teal);font-weight:600;font-size:.88rem;padding:.4rem .8rem;border-radius:999px}
 .timeline{list-style:none;padding:0;border-left:2px solid var(--line)}
-.timeline li{position:relative;padding:0 0 18px 24px}
+.timeline li{position:relative;padding:0 0 1.1rem 1.5rem}
 .timeline li:last-child{padding-bottom:0}
-.timeline li::before{content:"";position:absolute;left:-8px;top:6px;width:14px;height:14px;border-radius:50%;background:var(--bg);border:3px solid var(--accent)}
-.timeline b{display:block;color:var(--teal);font-size:14px;letter-spacing:.06em}
-.name-note{margin-top:20px;padding:16px 18px;border-radius:16px;background:var(--surface);border:1px solid var(--line);font-size:15.5px;color:var(--muted)}
+.timeline li::before{content:"";position:absolute;left:-.5rem;top:.4rem;width:.9rem;height:.9rem;border-radius:50%;background:var(--bg);border:3px solid var(--accent)}
+.timeline b{display:block;color:var(--teal);font-size:.88rem;letter-spacing:.06em}
+.name-note{margin-top:1.25rem;padding:1rem 1.1rem;border-radius:1rem;background:var(--surface);border:1px solid var(--line);font-size:.97rem;color:var(--muted)}
 .name-note b{color:var(--teal)}
-.name-note .ac{font-weight:700;color:var(--accent)}
+.name-note .ac{color:var(--accent)}
 
-/* gallery */
-.gallery{display:grid;gap:18px;grid-template-columns:1fr;margin-top:30px}
-@media(min-width:760px){.gallery{grid-template-columns:1fr 1fr}.gallery .wide{grid-column:1/-1}}
-figure{position:relative;border-radius:22px;overflow:hidden;background:var(--deep)}
-.gallery img{width:100%;height:auto;transition:transform .6s ease}
-figure:hover img{transform:scale(1.04)}
-figcaption{position:absolute;left:0;right:0;bottom:0;padding:40px 18px 14px;font-size:14.5px;color:#fff;background:linear-gradient(transparent,rgba(4,30,35,.82))}
+.gallery{display:grid;gap:1.1rem;grid-template-columns:1fr;margin-top:1.9rem}
+@media (width >= 47.5em){.gallery{grid-template-columns:1fr 1fr}.gallery .wide{grid-column:1/-1}}
+figure{position:relative;border-radius:1.4rem;overflow:hidden;background:var(--deep)}
+.gallery img{width:100%;transition:scale .6s ease}
+figure:hover img{scale:1.04}
+figcaption{position:absolute;inset-inline:0;bottom:0;padding:2.5rem 1.1rem .9rem;font-size:.9rem;color:#fff;background:linear-gradient(transparent,rgb(4 30 35 / .85))}
 
-/* contact */
-.contact{background:linear-gradient(150deg,var(--deep),var(--deeper));color:var(--on-deep);border-radius:30px;padding:56px 28px;text-align:center;position:relative;overflow:hidden}
+.contact{position:relative;isolation:isolate;overflow:hidden;background:linear-gradient(150deg,var(--deep),var(--deeper));color:var(--on-deep);border-radius:1.9rem;padding:3.5rem 1.75rem;text-align:center}
+.contact .bubbles{z-index:-1}
 .contact .bubbles i{background:#fff;opacity:.06}
-.contact > *{position:relative}
 .contact h2{color:var(--on-deep)}
-.contact p{max-width:32em;margin:0 auto 26px;opacity:.92}
-.contact-list{display:flex;flex-wrap:wrap;justify-content:center;gap:14px;margin:0 auto 24px}
-.ci{display:flex;align-items:center;gap:14px;min-width:260px;padding:16px 20px;border-radius:18px;background:#FAF4E6;color:#064F57;text-decoration:none;text-align:left;transition:transform .15s,box-shadow .2s}
-.ci:hover{transform:translateY(-3px);box-shadow:0 12px 26px rgba(0,0,0,.25)}
-.ci .ico{margin:0;width:46px;height:46px;border-radius:12px;background:#CFE6E3;color:#064F57}
-.ci .ico svg{width:22px;height:22px}
-.ci small{display:block;font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#0B7A75}
-.ci b{font-size:17.5px;word-break:break-all}
+.contact p{max-width:32em;margin:0 auto 1.6rem;opacity:.92}
+.contact-list{display:flex;flex-wrap:wrap;justify-content:center;gap:.9rem;margin:0 auto 1.5rem}
+.ci{display:flex;align-items:center;gap:.9rem;min-width:min(100%,16rem);padding:1rem 1.25rem;border-radius:1.1rem;background:#FAF4E6;color:#064F57;text-decoration:none;text-align:left;transition:translate .15s,box-shadow .2s}
+.ci:hover{translate:0 -3px;box-shadow:0 .75rem 1.6rem rgb(0 0 0 / .25)}
+.ci .ico{margin:0;width:2.9rem;height:2.9rem;border-radius:.75rem;background:#CFE6E3;color:#064F57}
+.ci .ico svg{width:1.4rem;height:1.4rem}
+.ci small{display:block;font-size:.75rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#0B7A75}
+.ci b{font-size:1.1rem;overflow-wrap:anywhere}
 .founder-link{color:var(--on-deep);font-weight:600;text-decoration:none;opacity:.9}
 .founder-link:hover{opacity:1;text-decoration:underline}
-footer{padding:36px 0 52px;color:var(--muted);font-size:14px;text-align:center}
-footer img{height:20px;width:auto;margin:0 auto 10px;opacity:.8}
+footer{padding:2.25rem 0 3.25rem;color:var(--muted);font-size:.88rem;text-align:center}
+footer .logo{height:1.25rem;margin:0 auto .6rem;opacity:.8}
 
-/* reveal */
-.rv{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
-.rv.in{opacity:1;transform:none}
-.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}
-@media (prefers-reduced-motion:reduce){
-  *,*::before,*::after{animation:none!important;transition:none!important}
-  .rv{opacity:1;transform:none}
-  html{scroll-behavior:auto}
+/* ---------- motion: only for people who have not asked for reduced motion ---------- */
+@media (prefers-reduced-motion:no-preference){
+  .bubbles i{animation:rise linear infinite}
+  .eyebrow::before{animation:pulse 2s ease-in-out infinite}
+  h1 .hl::after{animation:mark 1s .5s ease-out both}
+  .float{animation:bob 4.5s ease-in-out infinite}
+  .float.f2{animation-delay:-2s}
+  .track{animation:slide 32s linear infinite}
+  .arrow svg{animation:nudge 1.6s ease-in-out infinite}
+
+  /* scroll reveal: native scroll-driven animation where supported */
+  @supports ((animation-timeline: view()) and (animation-range: entry)){
+    .rv{animation:rise-in linear both;animation-timeline:view();animation-range:entry 0% entry 55%}
+  }
+  /* fallback (set by script only when native support is missing) */
+  .io .rv{opacity:0;translate:0 24px;transition:opacity .7s ease,translate .7s ease}
+  .io .rv.in{opacity:1;translate:none}
+}
+@keyframes pulse{50%{scale:1.5;opacity:.5}}
+@keyframes mark{from{scale:0 1}}
+@keyframes rise-in{from{opacity:0;translate:0 24px}}
+
+/* pause button stops every looping animation */
+.paused .bubbles i,.paused .eyebrow::before,.paused .float,.paused .track,.paused .arrow svg{animation-play-state:paused}
+@media (prefers-reduced-motion:reduce){.motion-toggle{display:none}}
+
+/* Windows high-contrast mode: keep boundaries visible */
+@media (forced-colors:active){
+  .btn,.card,.step,.aw,.ci,.float,.stat,.contact{border:1px solid CanvasText}
+  .bubbles,.wave{display:none}
 }
 </style>
 </head>
 <body>
-<header class="top" id="hdr">
-  <div class="wrap">
-    <a href="#top" aria-label="FISHAO home"><img class="logo" src="logo.png" alt="FISHAO" width="120" height="26"></a>
-    <nav>
-      <a href="#solution" class="hide">What we do</a>
-      <a href="#founder" class="hide">Founder</a>
-      <a href="#moments" class="hide">Photos</a>
-      <a href="#contact" class="cta">Contact us</a>
-    </nav>
+<a class="skip" href="#solution">Skip to content</a>
+<header class="top">
+  <div class="bar">
+    <div class="wrap">
+      <a href="#top" aria-label="FISHAO home"><img class="logo" src="logo.png" alt="FISHAO" width="120" height="26"></a>
+      <nav aria-label="Main">
+        <a href="#solution" class="hide">What we do</a>
+        <a href="#founder" class="hide">Founder</a>
+        <a href="#moments" class="hide">Photos</a>
+        <a href="#contact" class="cta">Contact us</a>
+      </nav>
+    </div>
   </div>
 </header>
 
 <main id="top">
-  <section class="hero">
+  <section class="hero" aria-labelledby="hero-title">
     <div class="bubbles" data-n="14" aria-hidden="true"></div>
     <div class="wrap">
       <div class="hero-grid">
         <div>
           <span class="eyebrow">Sustainable fisheries startup · Orani, Bataan</span>
-          <h1>Turning <span class="hl">fisheries waste</span> into real solutions.</h1>
+          <h1 id="hero-title">Turning <span class="hl">fisheries waste</span> into real solutions.</h1>
           <p class="lede">We convert low-value fisheries commodities into fisheries solutions. So far, FISHAO has turned more than <b>500,000 kg of wasted oyster shells</b> into sustainable water conditioner for aquariums.</p>
           <div class="btns">
             <a class="btn p" href="#solution">See how it works <span aria-hidden="true">→</span></a>
@@ -225,7 +257,7 @@ footer img{height:20px;width:auto;margin:0 auto 10px;opacity:.8}
           </div>
         </div>
         <div class="hero-art">
-          <div class="ph a"><img src="presenting.jpg" alt="Joshua Camba presenting FISHAO on a large screen" width="2682" height="1568"></div>
+          <div class="ph a"><img src="presenting.jpg" alt="Joshua Camba presenting FISHAO on a large screen" width="2682" height="1568" fetchpriority="high"></div>
           <div class="ph b"><img src="panel.jpg" alt="Founders panel at Bataan Startup Day 2025" width="3000" height="1460"></div>
           <div class="float f1"><b>500,000+ kg</b><span>oyster shells converted</span></div>
           <div class="float f2"><b>Champion</b><span>Bataan Pitching Competition</span></div>
@@ -238,65 +270,66 @@ footer img{height:20px;width:auto;margin:0 auto 10px;opacity:.8}
   <div class="band">
     <div class="wrap">
       <div class="stats">
-        <div class="stat rv"><b><span class="count" data-to="500000">0</span>+ kg</b><span>wasted oyster shells converted into sustainable water conditioner</span></div>
-        <div class="stat rv d1"><b>Nov 2024</b><span>FISHAO founded after winning the Bataan startup pitching competition</span></div>
-        <div class="stat rv d2"><b><span class="count" data-to="2">0</span>×</b><span>Bataan Pitching Competition champion, 2024 and 2025</span></div>
+        <div class="stat rv"><b><span class="count" data-to="500000">500,000</span>+ kg</b><span>wasted oyster shells converted into sustainable water conditioner</span></div>
+        <div class="stat rv"><b>Nov 2024</b><span>FISHAO founded after winning the Bataan startup pitching competition</span></div>
+        <div class="stat rv"><b><span class="count" data-to="2">2</span>×</b><span>Bataan Pitching Competition champion, 2024 and 2025</span></div>
       </div>
     </div>
   </div>
-  <div class="marquee" aria-hidden="true">
-    <div class="track">
+  <div class="marquee">
+    <div class="track" aria-hidden="true">
       <span>Oyster shells to water conditioner</span><span>Sustainable fisheries</span><span>Ornamental fish</span><span>Aquarium supplies</span><span>Made in Orani, Bataan</span>
       <span>Oyster shells to water conditioner</span><span>Sustainable fisheries</span><span>Ornamental fish</span><span>Aquarium supplies</span><span>Made in Orani, Bataan</span>
     </div>
+    <button type="button" class="motion-toggle" id="motionToggle"><svg viewBox="0 0 16 16" aria-hidden="true" fill="currentColor"><rect x="3" y="2" width="3.5" height="12" rx="1"/><rect x="9.5" y="2" width="3.5" height="12" rx="1"/></svg><span>Pause motion</span></button>
   </div>
 
   <section id="solution">
     <div class="wrap">
-      <p class="kicker rv">What we do</p>
-      <h2 class="rv">From wasted shells to sustainable solutions</h2>
-      <p class="sub rv">Fisheries commodities that are treated as low value still have something to give. We turn them into products that help aquarium keepers and the fisheries around them.</p>
-      <div class="flow">
-        <div class="step rv"><span class="n">01</span>
-          <div class="ico"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4C9 4 4 10 4 17c0 5 3 9 6 11h12c3-2 6-6 6-11 0-7-5-13-12-13z"/><path d="M16 4v24M10 7l2 21M22 7l-2 21"/></svg></div>
-          <h3>Low-value commodity</h3><p>Wasted oyster shells from fisheries that would otherwise go unused.</p></div>
-        <div class="arrow" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 16h22M19 8l8 8-8 8"/></svg></div>
-        <div class="step rv d1"><span class="n">02</span>
-          <div class="ico"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M26 12a10 10 0 0 0-18-3M6 20a10 10 0 0 0 18 3"/><path d="M8 4v5h5M24 28v-5h-5"/></svg></div>
-          <h3>Converted by FISHAO</h3><p>We recover the shells and turn waste into something useful.</p></div>
-        <div class="arrow" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 16h22M19 8l8 8-8 8"/></svg></div>
-        <div class="step end rv d2"><span class="n">03</span>
-          <div class="ico"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 3s-9 10-9 17a9 9 0 0 0 18 0c0-7-9-17-9-17z"/><path d="M12 21a4 4 0 0 0 4 4"/></svg></div>
-          <h3>Sustainable water conditioner</h3><p>A water conditioner for aquariums, made from recovered oyster shells.</p></div>
-      </div>
+      <p class="kicker">What we do</p>
+      <h2>From wasted shells to sustainable solutions</h2>
+      <p class="sub">Fisheries commodities that are treated as low value still have something to give. We turn them into products that help aquarium keepers and the fisheries around them.</p>
+      <ol class="flow" style="list-style:none;padding:0">
+        <li class="step rv"><span class="n" aria-hidden="true">01</span>
+          <div class="ico" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4C9 4 4 10 4 17c0 5 3 9 6 11h12c3-2 6-6 6-11 0-7-5-13-12-13z"/><path d="M16 4v24M10 7l2 21M22 7l-2 21"/></svg></div>
+          <h3>Low-value commodity</h3><p>Wasted oyster shells from fisheries that would otherwise go unused.</p></li>
+        <li class="arrow" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 16h22M19 8l8 8-8 8"/></svg></li>
+        <li class="step rv"><span class="n" aria-hidden="true">02</span>
+          <div class="ico" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M26 12a10 10 0 0 0-18-3M6 20a10 10 0 0 0 18 3"/><path d="M8 4v5h5M24 28v-5h-5"/></svg></div>
+          <h3>Converted by FISHAO</h3><p>We recover the shells and turn waste into something useful.</p></li>
+        <li class="arrow" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 16h22M19 8l8 8-8 8"/></svg></li>
+        <li class="step end rv"><span class="n" aria-hidden="true">03</span>
+          <div class="ico" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 3s-9 10-9 17a9 9 0 0 0 18 0c0-7-9-17-9-17z"/><path d="M12 21a4 4 0 0 0 4 4"/></svg></div>
+          <h3>Sustainable water conditioner</h3><p>A water conditioner for aquariums, made from recovered oyster shells.</p></li>
+      </ol>
 
       <div class="offers">
-        <div class="card rv"><div class="ico"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 16c4-6 10-8 15-6 3 1 5 3 7 6-2 3-4 5-7 6-5 2-11 0-15-6z"/><path d="M26 16l3-4v8z"/><circle cx="11" cy="15" r="1.2" fill="currentColor"/></svg></div><h3>Ornamental fish</h3><p>Healthy, carefully handled fish for home aquariums and hobbyists.</p></div>
-        <div class="card rv d1"><div class="ico"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="7" width="24" height="18" rx="3"/><path d="M4 13c4 2 8-2 12 0s8 2 12 0"/><circle cx="12" cy="19" r="1.2"/><circle cx="18" cy="21" r="1"/></svg></div><h3>Aquarium supplies</h3><p>The everyday supplies fish keepers need to look after their tanks.</p></div>
-        <div class="card rv d2"><div class="ico"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 26c0-10 6-17 18-20-1 12-8 19-18 20z"/><path d="M8 26l10-10"/></svg></div><h3>Sustainable by design</h3><p>Built by a licensed fisheries professional, with fisheries sustainability at the core.</p></div>
+        <div class="card rv"><div class="ico" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 16c4-6 10-8 15-6 3 1 5 3 7 6-2 3-4 5-7 6-5 2-11 0-15-6z"/><path d="M26 16l3-4v8z"/><circle cx="11" cy="15" r="1.2" fill="currentColor"/></svg></div><h3>Ornamental fish</h3><p>Healthy, carefully handled fish for home aquariums and hobbyists.</p></div>
+        <div class="card rv"><div class="ico" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="7" width="24" height="18" rx="3"/><path d="M4 13c4 2 8-2 12 0s8 2 12 0"/><circle cx="12" cy="19" r="1.2"/><circle cx="18" cy="21" r="1"/></svg></div><h3>Aquarium supplies</h3><p>The everyday supplies fish keepers need to look after their tanks.</p></div>
+        <div class="card rv"><div class="ico" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 26c0-10 6-17 18-20-1 12-8 19-18 20z"/><path d="M8 26l10-10"/></svg></div><h3>Sustainable by design</h3><p>Built by a licensed fisheries professional, with fisheries sustainability at the core.</p></div>
       </div>
     </div>
   </section>
 
-  <section class="awards">
+  <section class="awards" aria-labelledby="aw-title">
     <div class="wrap">
-      <p class="kicker rv">Recognition</p>
-      <h2 class="rv">Backed by wins on stage</h2>
-      <div class="aw-grid">
-        <div class="aw rv"><div class="medal"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 4h12v6a6 6 0 0 1-12 0z"/><path d="M10 6H5a4 4 0 0 0 5 5M22 6h5a4 4 0 0 1-5 5M16 16v6M11 28h10M13 22h6"/></svg></div><div><b>Champion, Bataan Pitching Competition 2024</b><span>The win that started FISHAO in November 2024</span></div></div>
-        <div class="aw rv d1"><div class="medal"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 4h12v6a6 6 0 0 1-12 0z"/><path d="M10 6H5a4 4 0 0 0 5 5M22 6h5a4 4 0 0 1-5 5M16 16v6M11 28h10M13 22h6"/></svg></div><div><b>Champion again, 2025</b><span>Defended the Bataan Pitching Competition title</span></div></div>
-        <div class="aw rv d2"><div class="medal"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="16" cy="12" r="7"/><path d="M12 18l-3 10 7-4 7 4-3-10"/></svg></div><div><b>Finalist, GSEA Philippines</b><span>Global Student Entrepreneur Awards local finals, representing FISHAO</span></div></div>
-      </div>
+      <p class="kicker">Recognition</p>
+      <h2 id="aw-title">Backed by wins on stage</h2>
+      <ul class="aw-grid" style="list-style:none;padding:0">
+        <li class="aw rv"><div class="medal" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 4h12v6a6 6 0 0 1-12 0z"/><path d="M10 6H5a4 4 0 0 0 5 5M22 6h5a4 4 0 0 1-5 5M16 16v6M11 28h10M13 22h6"/></svg></div><div><b>Champion, Bataan Pitching Competition 2024</b><span>The win that started FISHAO in November 2024</span></div></li>
+        <li class="aw rv"><div class="medal" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 4h12v6a6 6 0 0 1-12 0z"/><path d="M10 6H5a4 4 0 0 0 5 5M22 6h5a4 4 0 0 1-5 5M16 16v6M11 28h10M13 22h6"/></svg></div><div><b>Champion again, 2025</b><span>Defended the Bataan Pitching Competition title</span></div></li>
+        <li class="aw rv"><div class="medal" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="16" cy="12" r="7"/><path d="M12 18l-3 10 7-4 7 4-3-10"/></svg></div><div><b>Finalist, GSEA Philippines</b><span>Global Student Entrepreneur Awards local finals, representing FISHAO</span></div></li>
+      </ul>
     </div>
   </section>
 
-  <section id="founder">
+  <section id="founder" aria-labelledby="f-title">
     <div class="wrap">
       <div class="founder">
         <div class="f-photo rv"><img src="founder.jpg" width="900" height="900" loading="lazy" alt="Joshua Camba, founder of FISHAO, speaking with a microphone"></div>
-        <div class="rv d1">
+        <div>
           <p class="kicker">Meet the founder</p>
-          <h2>Joshua Camba</h2>
+          <h2 id="f-title">Joshua Camba</h2>
           <p>Joshua grew up in a fishing community on Manila Bay. In November 2024 he won the Bataan startup pitching competition and turned the idea into FISHAO.</p>
           <div class="tags"><span>Registered Fisheries Professional</span><span>Licensed Fisheries Observer</span></div>
           <ol class="timeline">
@@ -310,11 +343,11 @@ footer img{height:20px;width:auto;margin:0 auto 10px;opacity:.8}
     </div>
   </section>
 
-  <section id="moments" style="padding-top:20px">
+  <section id="moments" style="padding-top:1.25rem" aria-labelledby="m-title">
     <div class="wrap">
-      <p class="kicker rv">Photos</p>
-      <h2 class="rv">FISHAO on stage</h2>
-      <p class="sub rv">Sharing the FISHAO story with the Bataan startup community.</p>
+      <p class="kicker">Photos</p>
+      <h2 id="m-title">FISHAO on stage</h2>
+      <p class="sub">Sharing the FISHAO story with the Bataan startup community.</p>
       <div class="gallery">
         <figure class="wide rv">
           <img src="panel.jpg" width="3000" height="1460" loading="lazy" alt="Founders panel at Bataan Startup Day 2025, with Joshua Camba, Founder of FISHAO, speaking">
@@ -324,7 +357,7 @@ footer img{height:20px;width:auto;margin:0 auto 10px;opacity:.8}
           <img src="presenting.jpg" width="2682" height="1568" loading="lazy" alt="Joshua Camba presenting FISHAO, Fisheries Integrated Supplies for Hatchery Aquatic Ornamentals, on a large screen">
           <figcaption>Presenting FISHAO</figcaption>
         </figure>
-        <figure class="rv d1">
+        <figure class="rv">
           <img src="nitriact.jpg" width="2816" height="1504" loading="lazy" alt="A presenter speaking beside a slide titled Nitriact: Revolutionizing Aquatic Ecosystems">
           <figcaption>Nitriact: enhancing water quality, empowering sustainable solutions</figcaption>
         </figure>
@@ -332,15 +365,15 @@ footer img{height:20px;width:auto;margin:0 auto 10px;opacity:.8}
     </div>
   </section>
 
-  <section id="contact" style="padding-top:20px">
+  <section id="contact" style="padding-top:1.25rem" aria-labelledby="c-title">
     <div class="wrap">
       <div class="contact rv">
         <div class="bubbles" data-n="8" aria-hidden="true"></div>
-        <h2>Let's build sustainable fisheries together</h2>
+        <h2 id="c-title">Let's build sustainable fisheries together</h2>
         <p>Questions about FISHAO, our water conditioner, or want to work with us? Send us an email or give us a call.</p>
         <div class="contact-list">
-          <a class="ci" href="mailto:thefishboys692@gmail.com"><span class="ico"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="7" width="24" height="18" rx="3"/><path d="M5 9l11 8 11-8"/></svg></span><span><small>Email</small><b>thefishboys692@gmail.com</b></span></a>
-          <a class="ci" href="tel:+639063908731"><span class="ico"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4h5l2 7-3 2a16 16 0 0 0 7 7l2-3 7 2v5a3 3 0 0 1-3 3C14 27 5 18 5 7a3 3 0 0 1 3-3z"/></svg></span><span><small>Phone</small><b>+63 906 390 8731</b></span></a>
+          <a class="ci" href="mailto:thefishboys692@gmail.com"><span class="ico" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="7" width="24" height="18" rx="3"/><path d="M5 9l11 8 11-8"/></svg></span><span><small>Email</small><b>thefishboys692@gmail.com</b></span></a>
+          <a class="ci" href="tel:+639063908731"><span class="ico" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4h5l2 7-3 2a16 16 0 0 0 7 7l2-3 7 2v5a3 3 0 0 1-3 3C14 27 5 18 5 7a3 3 0 0 1 3-3z"/></svg></span><span><small>Phone</small><b>+63 906 390 8731</b></span></a>
         </div>
         <a class="founder-link" href="https://joshuacamba-git.github.io/joshua-camba-website/">Meet the founder →</a>
       </div>
@@ -348,52 +381,66 @@ footer img{height:20px;width:auto;margin:0 auto 10px;opacity:.8}
   </section>
 </main>
 
-<footer><div class="wrap"><img class="logo" src="logo.png" alt="FISHAO" width="92" height="20">© 2026 FISHAO Fish Trading · Tapulao, Orani, Bataan, Philippines</div></footer>
+<footer><div class="wrap"><img class="logo" src="logo.png" alt="FISHAO" width="92" height="20" loading="lazy">© 2026 FISHAO Fish Trading · Tapulao, Orani, Bataan, Philippines</div></footer>
 
 <script>
 (function(){
-  var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var rm = matchMedia('(prefers-reduced-motion: reduce)');
+  var root = document.documentElement;
 
-  // bubbles
+  // Bubbles (decorative). Their animation only runs when motion is allowed (CSS).
   document.querySelectorAll('.bubbles').forEach(function(box){
-    if(reduce) return;
     var n = +box.getAttribute('data-n') || 10;
-    for(var i=0;i<n;i++){
-      var b=document.createElement('i'), s=8+Math.random()*34;
-      b.style.width=b.style.height=s+'px';
-      b.style.left=(Math.random()*100)+'%';
-      b.style.animationDuration=(10+Math.random()*14)+'s';
-      b.style.animationDelay=(-Math.random()*20)+'s';
+    for (var i = 0; i < n; i++){
+      var b = document.createElement('i'), s = 8 + Math.random() * 34;
+      b.style.width = b.style.height = s + 'px';
+      b.style.left = (Math.random() * 100) + '%';
+      b.style.animationDuration = (10 + Math.random() * 14) + 's';
+      b.style.animationDelay = (-Math.random() * 20) + 's';
       box.appendChild(b);
     }
   });
 
-  // header shadow
-  var hdr=document.getElementById('hdr');
-  addEventListener('scroll',function(){hdr.classList.toggle('scrolled',scrollY>10)},{passive:true});
+  // Pause / play every looping animation (WCAG 2.2.2).
+  var btn = document.getElementById('motionToggle'), label = btn.querySelector('span');
+  var play = '<path d="M4 2.5v11l9-5.5z"/>', pause = '<rect x="3" y="2" width="3.5" height="12" rx="1"/><rect x="9.5" y="2" width="3.5" height="12" rx="1"/>';
+  btn.addEventListener('click', function(){
+    var p = root.classList.toggle('paused');
+    label.textContent = p ? 'Play motion' : 'Pause motion';
+    btn.querySelector('svg').innerHTML = p ? play : pause;
+  });
 
-  // count up
+  // Count-up: the real number is in the HTML; it only animates when motion is allowed.
   function countUp(el){
-    var to=+el.getAttribute('data-to');
-    if(reduce){el.textContent=to.toLocaleString('en-US');return}
-    var t0=null, dur=1600;
-    function step(t){ if(!t0)t0=t; var p=Math.min((t-t0)/dur,1), e=1-Math.pow(1-p,3);
-      el.textContent=Math.round(to*e).toLocaleString('en-US'); if(p<1)requestAnimationFrame(step) }
+    var to = +el.getAttribute('data-to');
+    if (rm.matches) return;
+    var t0 = null, dur = 1600;
+    el.textContent = '0';
+    function step(t){
+      if (!t0) t0 = t;
+      var p = Math.min((t - t0) / dur, 1), e = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.round(to * e).toLocaleString('en-US');
+      if (p < 1) requestAnimationFrame(step);
+    }
     requestAnimationFrame(step);
   }
 
-  var els=document.querySelectorAll('.rv');
-  if(!('IntersectionObserver' in window)){
-    els.forEach(function(e){e.classList.add('in')});
-    document.querySelectorAll('.count').forEach(countUp); return;
+  if (!('IntersectionObserver' in window)) return;
+
+  var cio = new IntersectionObserver(function(es){
+    es.forEach(function(e){ if (e.isIntersecting){ countUp(e.target); cio.unobserve(e.target); } });
+  }, { threshold: .6 });
+  document.querySelectorAll('.count').forEach(function(el){ cio.observe(el); });
+
+  // Scroll reveal fallback, only where native scroll-driven animations are missing.
+  var native = window.CSS && CSS.supports('(animation-timeline: view()) and (animation-range: entry)');
+  if (!native && !rm.matches){
+    root.classList.add('io');
+    var io = new IntersectionObserver(function(es){
+      es.forEach(function(e){ if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold: .12 });
+    document.querySelectorAll('.rv').forEach(function(el){ io.observe(el); });
   }
-  var io=new IntersectionObserver(function(es){es.forEach(function(e){
-    if(!e.isIntersecting) return;
-    e.target.classList.add('in');
-    e.target.querySelectorAll('.count').forEach(countUp);
-    io.unobserve(e.target);
-  })},{threshold:.15});
-  els.forEach(function(e){io.observe(e)});
 })();
 </script>
 </body>
