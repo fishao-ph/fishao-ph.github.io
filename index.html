@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FISHAO Fish Trading | Sustainable fisheries startup in Bataan</title>
+<meta name="description" content="FISHAO is a sustainable fisheries startup from Orani, Bataan, Philippines. Founded in November 2024 after winning the Bataan startup pitching competition.">
+<meta property="og:title" content="FISHAO Fish Trading">
+<meta property="og:description" content="A sustainable fisheries startup from Orani, Bataan, Philippines.">
+<meta property="og:image" content="bataan-startup-day.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Sans+Extra+Condensed:wght@700&family=Fira+Sans:wght@400;500;600&display=swap">
+<style>
+:root{
+  --bg:#FAF4E6; --surface:#FFFFFF; --ink:#12364F; --teal:#064F57; --muted:#4A6572;
+  --line:#E4DAC2; --bubble:#CFE6E3; --accent:#0B7A75;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0C2B33; --surface:#123A44; --ink:#F2EBD9; --teal:#8FD3CB; --muted:#A9C2C4;
+    --line:#245662; --bubble:#17525A; --accent:#8FD3CB;
+  }
+}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font:400 17px/1.6 "Fira Sans",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{color:inherit}
+.wrap{max-width:1040px;margin:0 auto;padding:0 20px}
+header.top{position:sticky;top:0;z-index:5;background:color-mix(in srgb,var(--bg) 90%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
+.top img{height:26px;width:auto}
+html:not([data-theme="light"]) .logo{}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .logo{filter:brightness(0) invert(.93)}}
+nav a{margin-left:20px;text-decoration:none;font-weight:500;font-size:15px;color:var(--muted)}
+nav a:hover{color:var(--teal)}
+@media(max-width:560px){nav a.hide{display:none}}
+.hero{position:relative;overflow:hidden;padding:72px 0 80px}
+.hero::before,.hero::after{content:"";position:absolute;border-radius:50%;background:var(--bubble);opacity:.55;z-index:0}
+.hero::before{width:360px;height:360px;right:-110px;top:-90px}
+.hero::after{width:180px;height:180px;right:140px;bottom:-70px;opacity:.4}
+.hero .wrap{position:relative;z-index:1}
+.eyebrow{font-weight:600;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+h1{font:700 clamp(46px,9vw,92px)/.95 "Fira Sans Extra Condensed","Fira Sans",sans-serif;color:var(--teal);margin:14px 0 20px;max-width:12ch}
+.lede{font-size:clamp(18px,2.4vw,22px);max-width:34em;color:var(--ink)}
+.btns{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.btn{display:inline-block;padding:12px 22px;border-radius:999px;font-weight:600;text-decoration:none;font-size:16px}
+.btn.p{background:var(--teal);color:var(--bg)}
+.btn.s{border:1.5px solid var(--teal);color:var(--teal)}
+.btn:hover{opacity:.88}
+section{padding:64px 0}
+h2{font:700 clamp(34px,5vw,48px)/1 "Fira Sans Extra Condensed","Fira Sans",sans-serif;color:var(--teal);margin-bottom:18px}
+.grid{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));margin-top:28px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:24px}
+.card h3{font-size:18px;color:var(--teal);margin-bottom:6px}
+.card p{color:var(--muted);font-size:16px}
+.story{display:grid;gap:36px;grid-template-columns:1fr;align-items:center}
+@media(min-width:820px){.story{grid-template-columns:1.1fr 1fr}}
+figure{border-radius:16px;overflow:hidden;border:1px solid var(--line);background:var(--surface)}
+figcaption{padding:12px 16px;font-size:14px;color:var(--muted)}
+.timeline{list-style:none;padding:0;margin-top:26px;border-left:2px solid var(--line)}
+.timeline li{position:relative;padding:0 0 22px 24px}
+.timeline li::before{content:"";position:absolute;left:-7px;top:6px;width:12px;height:12px;border-radius:50%;background:var(--accent)}
+.timeline b{display:block;color:var(--teal);font-size:15px;letter-spacing:.04em}
+.contact{background:var(--teal);color:#FAF4E6;border-radius:24px;padding:44px 28px;text-align:center}
+.contact h2{color:#FAF4E6}
+.contact p{max-width:32em;margin:0 auto 22px;opacity:.92}
+.contact .btn{background:#FAF4E6;color:#064F57}
+footer{padding:36px 0 48px;color:var(--muted);font-size:14px;text-align:center}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a href="#top" aria-label="FISHAO home"><img class="logo" src="logo.png" alt="FISHAO" width="120" height="26"></a>
+    <nav><a href="#about" class="hide">About</a><a href="#story">Our story</a><a href="#contact">Contact</a></nav>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap">
+      <p class="eyebrow">Sustainable fisheries startup · Orani, Bataan</p>
+      <h1>FISHAO Fish Trading</h1>
+      <p class="lede">Born in a fishing community on Manila Bay. FISHAO is a sustainable fisheries startup that began in November 2024, after our founder won the Bataan startup pitching competition.</p>
+      <div class="btns"><a class="btn p" href="#story">Read our story</a><a class="btn s" href="#contact">Get in touch</a></div>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="wrap">
+      <h2>What we do</h2>
+      <p class="lede">FISHAO Fish Trading supplies ornamental fish and aquarium supplies from Tapulao, Orani, Bataan, and is built on the goal of sustainable fisheries development.</p>
+      <div class="grid">
+        <div class="card"><h3>Ornamental fish</h3><p>Healthy, carefully handled fish for home aquariums and hobbyists.</p></div>
+        <div class="card"><h3>Aquarium supplies</h3><p>The everyday supplies fish keepers need to look after their tanks.</p></div>
+        <div class="card"><h3>Sustainable by design</h3><p>A business built by a licensed fisheries professional, with fisheries sustainability at its core.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="story">
+    <div class="wrap">
+      <div class="story">
+        <div>
+          <h2>Our story</h2>
+          <p>FISHAO started in November 2024, when our founder, Joshua Camba, won the Bataan startup pitching competition. The win turned an idea from a Manila Bay fishing community into a real business.</p>
+          <ol class="timeline">
+            <li><b>NOVEMBER 2024</b>Won the Bataan startup pitching competition and started FISHAO.</li>
+            <li><b>2025</b>Joined the founders panel at Bataan Startup Day to share the journey with aspiring entrepreneurs.</li>
+            <li><b>TODAY</b>Growing FISHAO from Orani, Bataan.</li>
+          </ol>
+        </div>
+        <figure>
+          <img src="bataan-startup-day.jpg" width="1600" height="1066" loading="lazy" alt="Founders, organizers and partners on stage at Bataan Startup Day, holding plaques">
+          <figcaption>Bataan Startup Day 2025</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="wrap">
+      <div class="contact">
+        <h2>Say hello</h2>
+        <p>Questions about FISHAO, or want to work with us? Reach out through the founder's website.</p>
+        <a class="btn" href="https://joshuacamba-git.github.io/joshua-camba-website/">Meet the founder</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap">© 2026 FISHAO Fish Trading · Tapulao, Orani, Bataan, Philippines</div></footer>
+</body>
+</html>
